@@ -38,5 +38,12 @@ class Expenses:
             expenses_sum+=expense['value']
         return round(expenses_sum,2)
 
+    def get_category(self, category):
+        category_list=[]
+        for expense in self.expenses:
+            if expense['category']==category:
+                category_list.append(expense)
+        return category_list
+
 
 expenses = Expenses()

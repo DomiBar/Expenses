@@ -39,5 +39,20 @@ def expense_details(expense_id):
     return render_template("expense.html", form=form, expense_id=expense_id)
 
 
+@app.route('/expenses/<category>/', methods=['GET'])
+def expense_category(category):
+    category_list = expenses.get_category(category)
+    form = ExpensesForm()
+    total=0
+
+    for element in category_list:
+        total+=element['value']
+
+    total=round(total,2)
+
+    return render_template("category.html", form=form, expenses=category_list,
+                           category=category, sum=total)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
