@@ -11,56 +11,57 @@
         td {
             border: 1px solid black;
         }
-        p{
+
+        p {
             color: red;
         }
     </style>
 </head>
 
 <body>
-<h2>Lista wydatków</h2>
+    <h2>Lista wydatków</h2>
 
-<table>
-    <thead>
-        <th>Tytuł</th>
-        <th>Kategoria</th>
-        <th>Opis</th>
-        <th>Wartość</th>
-        <th>Czy okresowy?</th>
-    </thead>
-    {% for expense in expenses %}
-    <tr>
-        <td><a href="/expenses/{{ loop.index }}">{{ expense.title }}</a></td>
-        <td><a href="/expenses/{{ expense.category }}">{{ expense.category }}</a></td>
-        <td>{{ expense.description }}</td>
-        <td>{{ expense.value }}</td>
-        <td>{{ expense.periodic }}</td>
-    </tr>
-    {% endfor %}
-    <tr>
-        <td></td>
-        <td>Suma: </td>
-        <td>{{ sum }}</td>
-    </tr>
-</table>
-<div>
-    <h2> Dodaj nowy wydatek: </h2>
-    {% if error %}
-    <p>{{error}}</p>
-    {% endif %}
-    <form method="POST" action="/expenses/">
-        {{ form.hidden_tag() }}
-        <table>
-            {% for field in form if field.widget.input_type != 'hidden' %}
-            <tr>
-                <th>{{ field.description }} {% if field.flags.required %}*{% endif %}</th>
-                <td>{{ field }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <input type="submit" value="Dodaj">
-    </form>
-</div>
+    <table>
+        <thead>
+            <th>Tytuł</th>
+            <th>Kategoria</th>
+            <th>Opis</th>
+            <th>Wartość</th>
+            <th>Czy okresowy?</th>
+        </thead>
+        {% for expense in expenses %}
+        <tr>
+            <td><a href="/expenses/{{ loop.index }}">{{ expense.title }}</a></td>
+            <td><a href="/expenses/{{ expense.category }}">{{ expense.category }}</a></td>
+            <td>{{ expense.description }}</td>
+            <td>{{ expense.value }}</td>
+            <td>{{ expense.periodic }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td>Suma: </td>
+            <td>{{ sum }}</td>
+        </tr>
+    </table>
+    <div>
+        <h2> Dodaj nowy wydatek: </h2>
+        {% if error %}
+        <p>{{error}}</p>
+        {% endif %}
+        <form method="POST" action="/expenses/">
+            {{ form.hidden_tag() }}
+            <table>
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                <tr>
+                    <th>{{ field.description }} {% if field.flags.required %}*{% endif %}</th>
+                    <td>{{ field }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <input type="submit" value="Dodaj">
+        </form>
+    </div>
 </body>
 
 </html>

@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Szczegóły wadatku</title>
 </head>
+
 <body>
     <h2> Zmień: </h2>
     <form method="POST" action="/expenses/{{ expense_id }}/">
         {{ form.hidden_tag() }}
         <table>
             {% for field in form if field.widget.input_type != 'hidden' %}
-                <tr>
-                    <th>{{ field.description }} {% if field.flags.required %}*{% endif %}</th>
-                    <td>{{ field }}</td>
-                </tr>
+            <tr>
+                <th>{{ field.description }} {% if field.flags.required %}*{% endif %}</th>
+                <td>{{ field }}</td>
+            </tr>
             {% endfor %}
         </table>
         <input type="submit" name="submit" value="Zmień">
         <input type="submit" name="delete" value="Usuń">
     </form>
 </body>
+
 </html>

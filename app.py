@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template, redirect, url_for
 from forms import ExpensesForm
 from models import expenses
+from datetime import date
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'whisper'
@@ -43,12 +45,12 @@ def expense_details(expense_id):
 def expense_category(category):
     category_list = expenses.get_category(category)
     form = ExpensesForm()
-    total=0
+    total = 0
 
     for element in category_list:
-        total+=element['value']
+        total += element['value']
 
-    total=round(total,2)
+    total = round(total, 2)
 
     return render_template("category.html", form=form, expenses=category_list,
                            category=category, sum=total)
