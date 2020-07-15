@@ -1,8 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 from forms import ExpensesForm
 from models import expenses
-from datetime import date
-import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'whisper'
@@ -21,8 +19,8 @@ def expenses_list():
         else:
             error = "Niepoprawnie wprowadzono dane"
 
-    return render_template('expenses.html', form=form, error=error, expenses=expenses.all(),
-                           sum=expenses.get_sum())
+    return render_template('expenses.html', form=form, error=error,
+                           expenses=expenses.all(), sum=expenses.get_sum())
 
 
 @app.route('/expenses/<int:expense_id>/', methods=['POST', 'GET'])

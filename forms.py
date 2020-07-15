@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, TextAreaField, BooleanField, FloatField
-from wtforms.validators import DataRequired, Email
+from wtforms import StringField, TextAreaField, BooleanField, FloatField
+from wtforms.validators import DataRequired
 
 
 class MyFloatField(FloatField):
