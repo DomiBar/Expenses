@@ -24,12 +24,12 @@
         "periodic": true
     },
     {
-        "id": 4,
         "title": "Telefon",
-        "category": "Rozrywka",
+        "category": "Rachunki",
         "description": "Abonament za telefon",
         "value": 30.0,
-        "periodic": true
+        "periodic": true,
+        "id": 4
     },
     {
         "id": 5,
@@ -38,5 +38,13 @@
         "description": "Paliwo na dojazd do pracy",
         "value": 59.4,
         "periodic": false
+    },
+    {
+        "id": 6,
+        "title": "Mieszkanie",
+        "category": "Rachunki",
+        "description": "",
+        "value": 1500,
+        "periodic": true
     }
 ]

@@ -21,10 +21,11 @@ def get_expense(expense_id):
 
 @app.route('/api/v1/expenses/<int:expense_id>', methods=['DELETE'])
 def delete_expense(expense_id):
-    result = expense.delete(expense_id)
+    result = expenses.delete(expense_id)
     if not result:
         abort(404)
     return jsonify({'result': result})
+
 
 @app.route('/api/v1/expenses/<int:expense_id>', methods=['PUT'])
 def update_expense(expense_id):
@@ -36,7 +37,7 @@ def update_expense(expense_id):
     data = request.json
     if any([
         'title' in data and not isinstance(data.get('title'), str),
-        'category' in data and not isinstance(data.get('category'),str),
+        'category' in data and not isinstance(data.get('category'), str),
         'description' in data and not isinstance(data.get('description'), str),
         'value' in data and not isinstance(data.get('value'), float),
         'periodic' in data and not isinstance(data.get('periodic'), bool)
@@ -54,24 +55,27 @@ def update_expense(expense_id):
     expenses.update(expense_id, expense)
     return jsonify({'expense': expense})
 
+
 @app.route('/api/v1/expenses/', methods=['POST'])
 def create_expense():
     if not request.json:
         abort(400)
 
-    if not 'title' in request.json:
+    if (not 'title' in request.json or not 'category' in request.json
+        or not 'value' in request.json or not 'periodic' in request.json):
         abort(400)
 
     expense = {
-        'id': expense.all()[-1]['id'] + 1,
+        'id': expenses.all()[-1]['id'] + 1,
         'title': request.json['title'],
         'category': request.json['category'],
         'description': request.json.get('description', ""),
         'value': request.json['value'],
         'periodic': request.json['periodic']
     }
-    expense.create(expense)
+    expenses.create(expense)
     return jsonify({'expense': expense}), 201
+
 
 @app.errorhandler(404)
 def not_found(error):
@@ -81,6 +85,7 @@ def not_found(error):
 @app.errorhandler(400)
 def bad_request(error):
     return make_response(jsonify({'error': 'Bad request', 'status code': 400}))
+
 
 if __name__ == "__main__":
     app.config['ENV'] = 'development'

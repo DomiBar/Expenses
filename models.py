@@ -31,7 +31,7 @@ class Expenses:
     def update(self, id, data):
         expense = self.get(id)
         if expense:
-            index = self.expense.index(expense)
+            index = self.expenses.index(expense)
             self.expenses[index] = data
             self.save_all()
             return True

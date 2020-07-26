@@ -1,0 +1,25 @@
+GET http://localhost:5000/api/v1/expenses
+
+###
+
+DELETE http://localhost:5000/api/v1/expenses/5
+
+###
+
+PUT http://localhost:5000/api/v1/expenses/4
+Content-Type: application/json
+
+{
+    "category":"Rachunki"
+}
+
+###
+
+POST http://localhost:5000/api/v1/expenses/
+Content-Type: application/json
+
+{
+    "title":"Mieszkanie",
+    "category":"Rachunki",
+    "value":1500,
+}
