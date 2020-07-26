@@ -14,11 +14,14 @@ class Expenses:
         return self.expenses
 
     def get(self, id):
-        return self.expenses[id]
+        expense = [expense for expense in self.all() if expense['id'] == id]
+        if expense:
+            return expense[0]
+        return []
 
     def create(self, data):
-        data.pop('csrf_token')
         self.expenses.append(data)
+        self.save_all()
 
     def save_all(self):
         file_source = "expenses.json"
@@ -26,13 +29,21 @@ class Expenses:
             json.dump(self.expenses, f)
 
     def update(self, id, data):
-        data.pop("csrf_token")
-        self.expenses[id] = data
-        self.save_all()
+        expense = self.get(id)
+        if expense:
+            index = self.expense.index(expense)
+            self.expenses[index] = data
+            self.save_all()
+            return True
+        return False
 
     def delete(self, id):
-        del self.expenses[id]
-        self.save_all()
+        expense = self.get(id)
+        if expense:
+            self.expenses.remove(expense)
+            self.save_all()
+            return True
+        return False
 
     def get_sum(self):
         expenses_sum = 0
