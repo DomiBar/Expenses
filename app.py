@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify, abort, make_response, request
-from forms import ExpensesForm
+from flask import Flask, request, jsonify, abort, make_response
 from models import expenses
 
 app = Flask(__name__)
@@ -61,8 +60,8 @@ def create_expense():
     if not request.json:
         abort(400)
 
-    if (not 'title' in request.json or not 'category' in request.json
-        or not 'value' in request.json or not 'periodic' in request.json):
+    if ('title' not in request.json or 'category' not in request.json
+            or 'value' not in request.json or 'periodic' not in request.json):
         abort(400)
 
     expense = {
