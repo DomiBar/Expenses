@@ -60,8 +60,8 @@ def create_expense():
     if not request.json:
         abort(400)
 
-    if ('title' not in request.json or 'category' not in request.json
-            or 'value' not in request.json or 'periodic' not in request.json):
+    if any(['title' not in request.json, 'category' not in request.json,
+           'value' not in request.json, 'periodic' not in request.json]):
         abort(400)
 
     expense = {
